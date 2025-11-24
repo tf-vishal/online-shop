@@ -1,0 +1,19 @@
+services:
+  online-shop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: online-shop
+    ports:
+      - "3000:80"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"] 
+      interval: 60s
+      timeout: 10s
+      retries: 5
+    networks:
+      - online-shop-network
+networks:
+  online-shop-network:
+    driver: bridge
